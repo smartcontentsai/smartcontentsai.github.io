@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartContent AI | 2050 Future Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-content">
+            <div class="quantum-circle"></div>
+            <h2 class="loading-text">CONNECTING TO 2050...</h2>
+            <div class="progress-bar"><div class="progress"></div></div>
+        </div>
+    </div>
+
+    <div class="noise"></div>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <div class="logo">SmartContent<span>AI</span></div>
+            <ul class="nav-links">
+                <li><a href="#about">Մեր Մասին</a></li>
+                <li><a href="#services">Ծառայություններ</a></li>
+                <li><a href="#business">Բիզնեսին</a></li>
+            </ul>
+            <div class="nav-socials">
+                <a href="https://instagram.com/smartcontent_ai" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+                <a href="https://t.me/SmartContentAI" target="_blank"><i class="ph ph-telegram-logo"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="glow-sphere"></div>
+        <div class="container hero-center">
+            <div class="cyber-badge">SYSTEM STATUS: OPTIMAL</div>
+            <h1>FUTURE OF <span>CONTENT</span></h1>
+            <p>Մենք ստեղծում ենք ապագայի թվային լուծումներ՝ օգտագործելով AI վիդեոներ, խելացի բոտեր և ավտոմատացված համակարգեր:</p>
+            <div class="hero-btns">
+                <button class="btn-main" onclick="toggleChat()">Պատվիրել AI</button>
+                <a href="#services" class="btn-outline">Բացահայտել</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-card">
+                <h2>SmartContent AI</h2>
+                <p>Մենք առաջատար AI գործակալություն ենք, որն օգնում է բիզնեսին մուտք գործել նոր դարաշրջան: Մեր նպատակն է ավտոմատացնել ձեր ստեղծագործական աշխատանքը և բարձրացնել արդյունավետությունը 70%-ով:</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Ինչո՞վ ենք զբաղվում</h2>
+            <div class="bento-grid">
+                <div class="bento-item">
+                    <i class="ph ph-video-camera-fill"></i>
+                    <h3>AI Վիդեոներ</h3>
+                    <p>Բարձրակարգ վիդեո բովանդակության ստեղծում սոցցանցերի համար:</p>
+                </div>
+                <div class="bento-item">
+                    <i class="ph ph-robot-fill"></i>
+                    <h3>Smart Chatbots</h3>
+                    <p>Խելացի օգնականներ, որոնք պատասխանում են ձեր փոխարեն:</p>
+                </div>
+                <div class="bento-item wide">
+                    <i class="ph ph-briefcase-fill"></i>
+                    <h3>Աջակցություն Բիզնեսին</h3>
+                    <p>Մենք օգնում ենք բիզնեսին խնայել ժամանակ և գումար՝ ներդնելով AI ավտոմատացված համակարգեր:</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="logo">SmartContent<span>AI</span></div>
+                <div class="footer-links">
+                    <a href="https://instagram.com/smartcontent_ai">Instagram</a>
+                    <a href="https://t.me/SmartContentAI">Telegram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2050 SmartContent AI. Բոլոր իրավունքները պաշտպանված են:</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="aiChat" class="chat-ui">
+        <div class="chat-head">
+            <span>AI Assistant</span>
+            <button onclick="toggleChat()">✕</button>
+        </div>
+        <div id="messages" class="chat-msgs">
+            <div class="msg bot">Բարև! Ես SmartContent AI-ն եմ: Պատվերների համար կարող եք գրել մեր Instagram-ին:</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatIn" placeholder="Հարցրու ինձ...">
+            <button onclick="sendMsg()"><i class="ph ph-paper-plane-right"></i></button>
+        </div>
+    </div>
+    <button class="chat-trigger" onclick="toggleChat()"><i class="ph ph-sparkle"></i></button>
+
+    <script src="script.js"></script>
+</body>
+</html>
