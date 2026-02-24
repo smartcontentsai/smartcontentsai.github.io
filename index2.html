@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Future - Next Gen Startup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500&display=swap');
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-ai { font-family: 'Orbitron', sans-serif; }
+
+        /* Loader Styles */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .loader-circle {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .glass:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(90deg, #3b82f6, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glow Effect */
+        .glow { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-circle mb-4"></div>
+        <h2 class="font-ai text-blue-500 tracking-widest animate-pulse">INITIALIZING AI...</h2>
+    </div>
+
+    <nav class="fixed w-full z-50 p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-2xl px-8 py-4">
+            <div class="text-2xl font-ai font-bold text-gradient">AI.VISION</div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#about" class="hover:text-blue-400 transition">Ստարտափ</a>
+                <a href="#portfolio" class="hover:text-blue-400 transition">Պորտֆոլիո</a>
+                <a href="#pricing" class="hover:text-blue-400 transition">Փաթեթներ</a>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full text-sm font-bold transition glow">Կապ</button>
+        </div>
+    </nav>
+
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4">
+        <div class="absolute -z-10 w-[500px] h-[500px] bg-blue-600/10 blur-[120px]"></div>
+        <h1 class="text-5xl md:text-8xl font-ai font-bold mb-6">ԱՊԱԳԱՆ <span class="text-gradient">AI-ՈՎ</span></h1>
+        <p class="max-w-2xl text-gray-400 text-lg md:text-xl mb-10">Մենք ստեղծում ենք բանականություն, որը փոխում է բիզնեսի և տեխնոլոգիաների ընկալումը։</p>
+        <div class="flex space-x-4">
+            <a href="#pricing" class="px-8 py-3 bg-white text-black font-bold rounded-lg hover:scale-105 transition">Սկսել հիմա</a>
+            <a href="#about" class="px-8 py-3 glass rounded-lg hover:bg-white/10 transition">Իմանալ ավելին</a>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-ai mb-12 border-l-4 border-blue-600 pl-4">Մեր Ստարտափի Մասին</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="glass p-8 rounded-3xl">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">Նորարարություն</h3>
+                <p class="text-gray-400 leading-relaxed">Մեր թիմը կենտրոնացած է նեյրոնային ցանցերի օպտիմալացման և ավտոմատացման վրա, որոնք լուծում են իրական աշխարհի խնդիրները վայրկյանների ընթացքում:</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border-blue-500/30">
+                <h3 class="text-xl font-bold mb-4 text-purple-400">Տեսլական</h3>
+                <p class="text-gray-400 leading-relaxed">Մենք հավատում ենք, որ AI-ը պետք է հասանելի լինի յուրաքանչյուրին՝ դարձնելով աշխատանքը 10 անգամ ավելի արդյունավետ:</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-24 px-6 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-ai mb-12 text-center">Պորտֆոլիո</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-2xl glass h-64">
+                    <div class="absolute inset-0 bg-blue-600/20 group-hover:bg-blue-600/40 transition"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h4 class="font-bold text-xl">Neuro-Sync App</h4>
+                        <p class="text-sm text-gray-300">Data Analytics</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl glass h-64">
+                    <div class="absolute inset-0 bg-purple-600/20 group-hover:bg-purple-600/40 transition"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h4 class="font-bold text-xl">Visionary Bot</h4>
+                        <p class="text-sm text-gray-300">NLP Solutions</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl glass h-64">
+                    <div class="absolute inset-0 bg-cyan-600/20 group-hover:bg-cyan-600/40 transition"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h4 class="font-bold text-xl">Auto-Code AI</h4>
+                        <p class="text-sm text-gray-300">Software Gen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 px-6 max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-ai mb-16">Ընտրեք Ձեր Փաթեթը</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-10 rounded-3xl">
+                <h3 class="text-xl mb-4">Բազային</h3>
+                <div class="text-4xl font-bold mb-6">$99 <span class="text-sm text-gray-400">/ամիս</span></div>
+                <ul class="text-gray-400 mb-8 space-y-3">
+                    <li>10,000 AI հարցում</li>
+                    <li>Ստանդարտ աջակցություն</li>
+                    <li>Ամպային պահեստ</li>
+                </ul>
+                <button class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition">Ընտրել</button>
+            </div>
+            <div class="glass p-10 rounded-3xl border-blue-500 scale-105 bg-blue-600/5">
+                <span class="bg-blue-600 text-[10px] px-3 py-1 rounded-full uppercase font-bold tracking-widest">Պրեմիում</span>
+                <h3 class="text-xl mb-4 mt-2">Պրոֆեսիոնալ</h3>
+                <div class="text-4xl font-bold mb-6">$299 <span class="text-sm text-gray-400">/ամիս</span></div>
+                <ul class="text-gray-400 mb-8 space-y-3">
+                    <li>Անսահմանափակ AI</li>
+                    <li>24/7 Մասնագետի աջակցություն</li>
+                    <li>API հասանելիություն</li>
+                </ul>
+                <button class="w-full py-3 bg-blue-600 rounded-xl hover:bg-blue-700 transition glow">Ընտրել</button>
+            </div>
+            <div class="glass p-10 rounded-3xl">
+                <h3 class="text-xl mb-4">Էնթերփրայզ</h3>
+                <div class="text-4xl font-bold mb-6">Custom</div>
+                <ul class="text-gray-400 mb-8 space-y-3">
+                    <li>Անհատական լուծումներ</li>
+                    <li>Անձնական մենեջեր</li>
+                    <li>Անվտանգության բարձր մակարդակ</li>
+                </ul>
+                <button class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition">Կապնվել</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/10 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:row justify-between items-center space-y-6 md:space-y-0">
+            <div class="text-xl font-ai font-bold text-gradient">AI.VISION</div>
+            <div class="flex space-x-6 text-2xl">
+                <a href="https://instagram.com" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me" class="hover:text-blue-400 transition"><i class="fab fa-telegram"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">© 2024 AI Vision Startup. Բոլոր իրավունքները պաշտպանված են:</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading screen logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 2500); // 2.5 seconds loading
+        });
+    </script>
+</body>
+</html>

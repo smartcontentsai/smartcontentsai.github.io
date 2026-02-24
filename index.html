@@ -3,113 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartContent AI | 2050 Future Interface</title>
+    <title>SmartContent AI - Ապագայի Տեխնոլոգիաներ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
 </head>
 <body>
 
     <div id="loader">
-        <div class="loader-content">
-            <div class="quantum-circle"></div>
-            <h2 class="loading-text">CONNECTING TO 2050...</h2>
-            <div class="progress-bar"><div class="progress"></div></div>
-        </div>
+        <div class="loader-ring mb-6"></div>
+        <h2 class="font-ai text-blue-500 tracking-[0.3em] animate-pulse">SMART CONTENT AI</h2>
     </div>
 
-    <div class="noise"></div>
-
-    <nav class="navbar">
-        <div class="container nav-flex">
-            <div class="logo">SmartContent<span>AI</span></div>
-            <ul class="nav-links">
-                <li><a href="#about">Մեր Մասին</a></li>
-                <li><a href="#services">Ծառայություններ</a></li>
-                <li><a href="#business">Բիզնեսին</a></li>
-            </ul>
-            <div class="nav-socials">
-                <a href="https://instagram.com/smartcontent_ai" target="_blank"><i class="ph ph-instagram-logo"></i></a>
-                <a href="https://t.me/SmartContentAI" target="_blank"><i class="ph ph-telegram-logo"></i></a>
+    <nav class="fixed w-full z-50 p-4 md:p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-2xl px-6 py-4">
+            <div class="text-xl md:text-2xl font-ai font-bold text-gradient">SmartContentAI</div>
+            <div class="hidden md:flex space-x-8 font-medium text-sm">
+                <a href="#about" class="hover:text-blue-400 transition">Մեր Մասին</a>
+                <a href="#services" class="hover:text-blue-400 transition">Ծառայություններ</a>
+                <a href="#pricing" class="hover:text-blue-400 transition">Փաթեթներ</a>
             </div>
+            <button onclick="openChatWithMsg('Ողջույն, ցանկանում եմ կապ հաստատել ձեզ հետ:')" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full text-xs font-bold transition">ԿԱՊ</button>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="glow-sphere"></div>
-        <div class="container hero-center">
-            <div class="cyber-badge">SYSTEM STATUS: OPTIMAL</div>
-            <h1>FUTURE OF <span>CONTENT</span></h1>
-            <p>Մենք ստեղծում ենք ապագայի թվային լուծումներ՝ օգտագործելով AI վիդեոներ, խելացի բոտեր և ավտոմատացված համակարգեր:</p>
-            <div class="hero-btns">
-                <button class="btn-main" onclick="toggleChat()">Պատվիրել AI</button>
-                <a href="#services" class="btn-outline">Բացահայտել</a>
+    <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
+        <div class="absolute -z-10 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-600/10 blur-[120px]"></div>
+        <h1 class="text-4xl md:text-7xl font-ai font-bold mb-6 leading-tight">ՍՏԵՂԾԵՆՔ <span class="text-gradient">ԱՊԱԳԱՆ</span> <br> ՄԻԱՍԻՆ</h1>
+        <p class="max-w-2xl text-gray-400 text-base md:text-xl mb-10 leading-relaxed">
+            SmartContentAI-ը տրամադրում է նորարարական AI լուծումներ ձեր բիզնեսի ավտոմատացման և թվային ներկայության համար:
+        </p>
+        <button onclick="toggleChat()" class="px-10 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition shadow-xl">ՍԿՍԵԼ ՀԻՄԱ</button>
+    </header>
+
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-ai mb-6 text-gradient">Մեր Ստարտափի Մասին</h2>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                    Մենք մասնագիտացված ենք արհեստական բանականության գործիքների մշակման մեջ, որոնք օգնում են բիզնեսներին խնայել ժամանակ և ռեսուրսներ:
+                </p>
+                <div class="flex gap-4">
+                    <div class="glass p-4 rounded-xl flex-1 text-center">
+                        <h4 class="text-blue-500 font-bold text-2xl">99%</h4>
+                        <p class="text-xs text-gray-500">Արդյունավետություն</p>
+                    </div>
+                    <div class="glass p-4 rounded-xl flex-1 text-center">
+                        <h4 class="text-purple-500 font-bold text-2xl">24/7</h4>
+                        <p class="text-xs text-gray-500">Աջակցություն</p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass p-1 rounded-3xl overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800" alt="AI Tech" class="rounded-3xl opacity-80">
             </div>
         </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-card">
-                <h2>SmartContent AI</h2>
-                <p>Մենք առաջատար AI գործակալություն ենք, որն օգնում է բիզնեսին մուտք գործել նոր դարաշրջան: Մեր նպատակն է ավտոմատացնել ձեր ստեղծագործական աշխատանքը և բարձրացնել արդյունավետությունը 70%-ով:</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Ինչո՞վ ենք զբաղվում</h2>
-            <div class="bento-grid">
-                <div class="bento-item">
-                    <i class="ph ph-video-camera-fill"></i>
-                    <h3>AI Վիդեոներ</h3>
-                    <p>Բարձրակարգ վիդեո բովանդակության ստեղծում սոցցանցերի համար:</p>
+    <section id="services" class="py-24 px-6 bg-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-ai mb-16 text-center">Ծառայություններ</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-10 rounded-3xl glass-card text-center">
+                    <i class="fas fa-robot text-4xl text-blue-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">AI Chatbots</h3>
+                    <p class="text-gray-400 text-sm">Խելացի չաթ-բոտեր, որոնք սպասարկում են ձեր հաճախորդներին 24/7:</p>
                 </div>
-                <div class="bento-item">
-                    <i class="ph ph-robot-fill"></i>
-                    <h3>Smart Chatbots</h3>
-                    <p>Խելացի օգնականներ, որոնք պատասխանում են ձեր փոխարեն:</p>
+                <div class="glass p-10 rounded-3xl glass-card text-center">
+                    <i class="fas fa-video text-4xl text-purple-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">AI Video</h3>
+                    <p class="text-gray-400 text-sm">Վիդեո կոնտենտի ավտոմատ ստեղծում և մոնտաժ AI գործիքներով:</p>
                 </div>
-                <div class="bento-item wide">
-                    <i class="ph ph-briefcase-fill"></i>
-                    <h3>Աջակցություն Բիզնեսին</h3>
-                    <p>Մենք օգնում ենք բիզնեսին խնայել ժամանակ և գումար՝ ներդնելով AI ավտոմատացված համակարգեր:</p>
+                <div class="glass p-10 rounded-3xl glass-card text-center">
+                    <i class="fas fa-code text-4xl text-cyan-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Web կայք</h3>
+                    <p class="text-gray-400 text-sm">Ժամանակակից և արագ վեբ կայքերի պատրաստում բարդ լուծումներով:</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-top">
-                <div class="logo">SmartContent<span>AI</span></div>
-                <div class="footer-links">
-                    <a href="https://instagram.com/smartcontent_ai">Instagram</a>
-                    <a href="https://t.me/SmartContentAI">Telegram</a>
-                </div>
+    <section id="pricing" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-ai mb-16 text-center">Փաթեթներ</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-10 rounded-3xl flex flex-col">
+                <h3 class="text-xl mb-4">Ստանդարտ</h3>
+                <div class="text-4xl font-bold mb-8 font-ai">40․000դր</div>
+                <ul class="text-gray-400 space-y-4 mb-10 text-sm flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 1 AI Չաթ-բոտ</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> Ամսական աջակցություն</li>
+                </ul>
+                <button onclick="openChatWithMsg('Ցանկանում եմ պատվիրել Ստանդարտ փաթեթը')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition font-bold">ԸՆՏՐԵԼ</button>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2050 SmartContent AI. Բոլոր իրավունքները պաշտպանված են:</p>
+            <div class="glass p-10 rounded-3xl border-blue-600 scale-105 bg-blue-600/5 flex flex-col">
+                <span class="bg-blue-600 text-[10px] w-max px-3 py-1 rounded-full uppercase font-bold mb-4">Popular</span>
+                <h3 class="text-xl mb-4 text-blue-400">Բիզնես</h3>
+                <div class="text-4xl font-bold mb-8 font-ai">180․000դր</div>
+                <ul class="text-gray-400 space-y-4 mb-10 text-sm flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> AI Չաթ-բոտ </li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> WEB կայք </li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 5 AI Reels</li>
+                </ul>
+                <button onclick="openChatWithMsg('Ցանկանում եմ պատվիրել Բիզնես փաթեթը')" class="w-full py-3 bg-blue-600 rounded-xl hover:bg-blue-700 transition font-bold">ԸՆՏՐԵԼ</button>
             </div>
+            <div class="glass p-10 rounded-3xl flex flex-col">
+                <h3 class="text-xl mb-4">Էքսպերտ</h3>
+                <div class="text-4xl font-bold mb-8 font-ai">300.000դր</div>
+                <ul class="text-gray-400 space-y-4 mb-10 text-sm flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 2 AI Chat bot</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 1 ամիս անվճար սպասարկում</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> WEB կայք</li>
+                </ul>
+                <button onclick="openChatWithMsg('Ցանկանում եմ քննարկել Էքսպերտ փաթեթի պայմանները')" class="w-full py-3 border border-white/20 rounded-xl hover:bg-white hover:text-black transition font-bold">ԿԱՊՆՎԵԼ</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 border-t border-white/10 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-2xl font-ai font-bold text-gradient">SmartContentAI</div>
+            <div class="flex space-x-8 text-2xl">
+                <a href="https://instagram.com/smartcontent_ai" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/SmartContentAI" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-telegram"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm text-center">© 2026 SmartContent AI Startup. Բոլոր իրավունքները պաշտպանված են:</p>
+            <p class="text-[10px] text-gray-700">Ստեղծված է SmartContentAI-ի կողմից</p>
         </div>
     </footer>
 
-    <div id="aiChat" class="chat-ui">
-        <div class="chat-head">
-            <span>AI Assistant</span>
-            <button onclick="toggleChat()">✕</button>
-        </div>
-        <div id="messages" class="chat-msgs">
-            <div class="msg bot">Բարև! Ես SmartContent AI-ն եմ: Պատվերների համար կարող եք գրել մեր Instagram-ին:</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chatIn" placeholder="Հարցրու ինձ...">
-            <button onclick="sendMsg()"><i class="ph ph-paper-plane-right"></i></button>
+    <div id="smart-ai-widget">
+        <button id="chat-btn" onclick="toggleChat()"><i class="fas fa-robot"></i></button>
+        <div id="chat-window">
+            <div class="chat-header">
+                <span class="font-bold text-sm"><i class="fas fa-brain mr-2"></i> Smart Assistant</span>
+                <button onclick="toggleChat()" class="text-2xl">&times;</button>
+            </div>
+            <div id="chat-messages"></div>
+            <div id="typing" style="display:none; color:#555; font-size:11px; padding: 10px 20px;">AI-ը գրում է...</div>
+            <div class="p-4 border-t border-white/10 flex gap-2">
+                <input type="text" id="user-input" class="flex-1 bg-[#1a1a1a] border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-blue-500" placeholder="Գրեք հարցը..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()" class="bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center"><i class="fas fa-paper-plane text-xs"></i></button>
+            </div>
         </div>
     </div>
-    <button class="chat-trigger" onclick="toggleChat()"><i class="ph ph-sparkle"></i></button>
-
-    <script src="script.js"></script>
+<script src="main.js"></script>
+    <script src="chat.js">
+    </script>
 </body>
 </html>
