@@ -31,8 +31,8 @@ const chatWindow = document.getElementById('chat-window');
         async function processAI(text) {
             document.getElementById('typing').style.display = 'block';
             try {
-                // ՓՈԽԱՐԻՆԻՐ ԱՅՍ URL-Ը ՔՈ RENDER-Ի ՀԱՍՑԵՈՎ
-                const res = await fetch('http://127.0.0.1:8000/chat', {
+                
+                const res = await fetch('https://backend-lvew.onrender.com/chat', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({message: text})
@@ -47,4 +47,5 @@ const chatWindow = document.getElementById('chat-window');
         }
 
         // Initial welcome
+
         setTimeout(() => addMsg("Ողջույն! Ես SmartContentAI-ի օգնականն եմ: Ինչպե՞ս կարող եմ օգնել:", "bot"), 4000);
