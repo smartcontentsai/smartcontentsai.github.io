@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCon AI — Պորտֆոլիո / Портфолио / Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="../logo.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS RESET & SYSTEM VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-color: #06060a;
+            --surface-color: #0e0e18;
+            --surface-hover: #161626;
+            --accent-blue: #5b6ef5;
+            --accent-purple: #a259f7;
+            --accent-cyan: #22d3c8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --max-width: 1280px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* SCROLLBAR CONFIGURATION */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252538;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        /* SCROLL PROGRESS INDICATOR */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-cyan));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* CORE GRID UTILITIES */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(162, 89, 247, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px rgba(162, 89, 247, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* LOADER SCREEN */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .loader-bar-bg {
+            width: 160px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .loader-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+        }
+
+        /* FIXED NAVBAR */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: rgba(6, 6, 10, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 0;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        .nav-links a.active {
+            font-weight: 700;
+            position: relative;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switcher-desktop {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* MOBILE MENU OVERLAY */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--surface-color);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 40px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .mobile-menu-links a {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .mobile-menu-links a.active {
+            color: var(--accent-blue);
+        }
+
+        .mobile-lang-switcher {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 4px;
+        }
+
+        /* PORTFOLIO WRAPPER / HEADER HEADER */
+        .portfolio-hero {
+            padding: 160px 0 60px 0;
+            text-align: center;
+        }
+
+        .portfolio-hero h1 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 48px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ANIMATED FILTER MECHANISM STYLE */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            background: rgba(14, 14, 24, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            border-radius: 40px;
+            gap: 4px;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .filter-tab:hover {
+            color: var(--text-main);
+        }
+
+        .filter-tab.active {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* PREMIUM DYNAMIC GRID STYLING */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .project-card {
+            background: rgba(14, 14, 24, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(91, 110, 245, 0.3);
+            box-shadow: 0 16px 40px rgba(91, 110, 245, 0.15);
+        }
+
+        /* PREMIUM BRUSH GRAPHIC/GRADIENT HOVER EFFECT MOCKUP PLACEHOLDER */
+        .project-mockup {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            background: linear-gradient(135deg, #0e0e18, #18182c);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .mockup-mesh {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle away, rgba(91, 110, 245, 0.12), rgba(162, 89, 247, 0.05), transparent 60%);
+            top: -25%;
+            left: -25%;
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .mockup-mesh {
+            transform: scale(1.1) translate(10px, 10px);
+            background: radial-gradient(circle away, rgba(34, 211, 200, 0.2), rgba(91, 110, 245, 0.1), transparent 60%);
+        }
+
+        .mockup-icon {
+            font-size: 42px;
+            color: rgba(255, 255, 255, 0.08);
+            z-index: 2;
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .mockup-icon {
+            color: var(--accent-cyan);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 12px rgba(34, 211, 200, 0.4));
+        }
+
+        .project-details {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .project-tag {
+            align-self: flex-start;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent-blue);
+            background: rgba(91, 110, 245, 0.08);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .project-details h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .project-details p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex: 1;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 16px;
+            width: 100%;
+        }
+
+        .project-link i {
+            font-size: 11px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-link {
+            color: var(--accent-cyan);
+        }
+
+        .project-card:hover .project-link i {
+            transform: translate(3px, -3px);
+        }
+
+        /* FOOTER MODULE */
+        footer {
+            background: #030306;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 0 40px 0;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-bottom-info {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-legal-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* SCROLL TO TOP UTILITY */
+        #scroll-top-btn {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            width: 44px;
+            height: 44px;
+            background: rgba(14, 14, 24, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+            transition: var(--transition-smooth);
+        }
+
+        #scroll-top-btn.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scroll-top-btn:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            transform: translateY(-4px);
+        }
+
+        /* TERMS & PRIVACY ISOLATION VIEW STYLING */
+        #legal-isolation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-color);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 20px;
+        }
+
+        #legal-isolation-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 48px;
+            position: relative;
+        }
+
+        .legal-close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .legal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .legal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .legal-content div {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .legal-content p {
+            margin-bottom: 16px;
+        }
+
+        /* RESPONSIVE LAYOUT RESPONSIVENESS */
+        @media (max-width: 1200px) {
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links, .nav-actions .lang-switcher-desktop, .nav-actions .btn-secondary { display: none; }
+            .menu-toggle { display: block; }
+            .portfolio-hero h1 { font-size: 38px; }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .legal-container { padding: 32px 20px; }
+            .footer-wrapper { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <div id="loader">
+        <img src="../logo.jpg" alt="SmartCon AI" style="width:60px; height:60px; border-radius:14px;">
+        <div class="loader-bar-bg"><div class="loader-bar-fill" id="loader-bar"></div></div>
+    </div>
+
+    <header id="main-header">
+        <div class="container nav-wrapper">
+            <a href="/" class="logo-area">
+                <img src="../logo.jpg" alt="SmartCon AI Logo" class="logo-img">
+                <span class="logo-text">SmartCon AI</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="/" data-i18n="nav_home">Գլխավոր</a></li>
+                <li><a href="#" class="active" data-i18n="nav_portfolio">Պորտֆոլիո</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="lang-switcher-desktop">
+                    <button class="lang-btn active" onclick="switchLanguage('hy')">HY</button>
+                    <button class="lang-btn" onclick="switchLanguage('ru')">RU</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <a href="https://t.me/smartconaibot" target="_blank" class="btn btn-primary" data-i18n="nav_cta">Կապվել</a>
+            </div>
+
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu-overlay">
+        <ul class="mobile-menu-links">
+            <li><a href="/" onclick="toggleMobileMenu()" data-i18n="nav_home">Գլխավոր</a></li>
+            <li><a href="#" class="active" onclick="toggleMobileMenu()" data-i18n="nav_portfolio">Պորտֆոլիո</a></li>
+        </ul>
+        <div class="mobile-lang-switcher">
+            <button class="lang-btn active" onclick="switchLanguage('hy')">HY</button>
+            <button class="lang-btn" onclick="switchLanguage('ru')">RU</button>
+            <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+        </div>
+    </div>
+
+    <div id="main-portfolio-view">
+        
+        <section class="portfolio-hero">
+            <div class="container">
+                <h1 data-i18n="port_title">Մեր Կատարած Աշխատանքները</h1>
+                <p data-i18n="port_subtitle">Բացահայտեք մեր կողմից իրականացված AI լուծումները, ավտոմատացված համակարգերը և պրեմիում վեբ հարթակները:</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterProjects('all', this)" data-i18n="cat_all">Բոլորը</button>
+                    <button class="filter-tab" onclick="filterProjects('ai-fintech', this)" data-i18n="cat_ai">AI & FinTech</button>
+                    <button class="filter-tab" onclick="filterProjects('ecommerce', this)" data-i18n="cat_eco">E-commerce</button>
+                    <button class="filter-tab" onclick="filterProjects('corporate', this)" data-i18n="cat_corp">Կորպորատիվ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="portfolio-grid" id="projects-grid-node">
+                
+                <div class="project-card" data-category="ai-fintech">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-brain mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">AI & FinTech</span>
+                            <h3 data-i18n="p1_t">MardRisk AI Product</h3>
+                            <p data-i18n="p1_d">Առաջադեմ Ֆինանսական LLM համակարգ՝ տվյալների վերլուծության համար:</p>
+                        </div>
+                        <a href="https://mardriskai.online" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai-fintech">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-sliders mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">AI & FinTech</span>
+                            <h3 data-i18n="p2_t">MardRisk AI App</h3>
+                            <p data-i18n="p2_d">Ֆինանսական LLM մոդելի օգտագործման ինտերֆեյս և գործարկում:</p>
+                        </div>
+                        <a href="https://ai.mardriskai.online" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai-fintech">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-graduation-cap mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">AI & FinTech</span>
+                            <h3 data-i18n="p3_t">AcademyMardRisk AI</h3>
+                            <p data-i18n="p3_d">Ուսումնական հարթակ AI և ֆինանսական տվյալների գիտության (Data Science) համար:</p>
+                        </div>
+                        <a href="https://academy.mardriskai.online" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai-fintech">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-newspaper mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">AI & FinTech</span>
+                            <h3 data-i18n="p4_t">MardRisk Blog</h3>
+                            <p data-i18n="p4_d">Տեխնոլոգիական բլոգ և վերլուծական հարթակ MardRisk էկոհամակարգի համար:</p>
+                        </div>
+                        <a href="https://blog.mardriskai.online" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai-fintech">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-leaf mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">AI & FinTech</span>
+                            <h3 data-i18n="p5_t">Oxythea</h3>
+                            <p data-i18n="p5_d">Էկոլոգիական և շրջակա միջավայրի տվյալների AI մոնիտորինգի նախագիծ:</p>
+                        </div>
+                        <a href="https://oxythea.smartconai.store" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ecommerce">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-shop mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">E-commerce</span>
+                            <h3 data-i18n="p6_t">Tiffany Flowers</h3>
+                            <p data-i18n="p6_d">Ծաղիկների էլեգանտ օնլայն խանութ՝ դինամիկ կատալոգով և պատվերի ձևով:</p>
+                        </div>
+                        <a href="https://smartconai.store/tiffany_flowers" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ecommerce">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-basket-shopping mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">E-commerce</span>
+                            <h3 data-i18n="p7_t">AL Flowers</h3>
+                            <p data-i18n="p7_d">Պրեմիում դասի ծաղկի սրահի վեբ-կայք՝ ինտերակտիվ պատկերասրահով:</p>
+                        </div>
+                        <a href="https://smartconai.store/al_flowers" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ecommerce">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-couch mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">E-commerce</span>
+                            <h3 data-i18n="p8_t">Best Furniture</h3>
+                            <p data-i18n="p8_d">Ժամանակակից կահույքի խանութ-սրահի կատալոգ՝ հարմար ֆիլտրերով:</p>
+                        </div>
+                        <a href="https://smartconai.store/best_furniture" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="corporate">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-tooth mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">Corporate & Services</span>
+                            <h3 data-i18n="p9_t">Dante Dental</h3>
+                            <p data-i18n="p9_d">Ատամնաբուժական կլինիկայի կայք՝ օնլայն հերթագրման համակարգով:</p>
+                        </div>
+                        <a href="https://smartconai.store/dante_dental" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="corporate">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-building mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">Corporate & Services</span>
+                            <h3 data-i18n="p10_t">City Estate</h3>
+                            <p data-i18n="p10_d">Անշարժ գույքի գործակալության պլատֆորմ՝ հայտարարությունների բազայով:</p>
+                        </div>
+                        <a href="https://smartconai.store/city_estate/" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="corporate">
+                    <div class="project-mockup">
+                        <div class="mockup-mesh"></div>
+                        <i class="fa-solid fa-briefcase mockup-icon"></i>
+                    </div>
+                    <div class="project-details">
+                        <div>
+                            <span class="project-tag">Corporate & Services</span>
+                            <h3 data-i18n="p11_t">Aghajanyan Agency</h3>
+                            <p data-i18n="p11_d">Բիզնես գործակալության պաշտոնական ներկայացուցչական վեբ-կայք:</p>
+                        </div>
+                        <a href="https://smartconai.store/aghajanyanagency" target="_blank" class="project-link">
+                            <span data-i18n="visit">Անցնել Կայք</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <div class="container footer-wrapper">
+                <div class="footer-bottom-info">
+                    <p>&copy; 2026 SmartCon AI. All rights reserved.</p>
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#" onclick="openLegalView('terms'); return false;" data-i18n="terms_link">Օգտագործման Պայմաններ</a>
+                    <a href="#" onclick="openLegalView('privacy'); return false;" data-i18n="privacy_link">Գաղտնիության Քաղաքականություն</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <button id="scroll-top-btn" onclick="scrollToTop()" aria-label="Scroll To Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div id="legal-isolation-overlay">
+        <div class="legal-container">
+            <button class="legal-close-btn" onclick="closeLegalView()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="legal-content">
+                <h2 id="legal-title">Legal Document</h2>
+                <div id="legal-body">Content layer...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const I18N_PORTFOLIO = {
+            hy: {
+                nav_home: "Գլխավոր", nav_portfolio: "Պորտֆոլիո", nav_cta: "Կապվել",
+                port_title: "Մեր Կատարած Աշխատանքները",
+                port_subtitle: "Բացահայտեք մեր կողմից իրականացված AI լուծումները, ավտոմատացված համակարգերը և պրեմիում վեբ հարթակները:",
+                cat_all: "Բոլորը", cat_ai: "AI & FinTech", cat_eco: "E-commerce", cat_corp: "Կորպորատիվ",
+                visit: "Անցնել Կայք", terms_link: "Օգտագործման Պայմաններ", privacy_link: "Գաղտնիության Քաղաքականություն",
+                terms_title: "Օգտագործման Պայմաններ", privacy_title: "Գաղտնիության Քաղաքականություն",
+                terms_content: "<p>Բարի գալուստ SmartCon AI: Մեր պորտֆոլիոյի էջում ներկայացված նախագծերը հանդիսանում են ընկերության մտավոր սեփականությունը կամ մշակվել են հաճախորդների հետ համաձայնագրերի շրջանակներում:</p>",
+                privacy_content: "<p>Գաղտնիության քաղաքականությունը կարգավորում է տվյալների պաշտպանությունը: Մենք չենք հավաքագրում անձնական տվյալներ պորտֆոլիո դիտարկելիս:</p>",
+                p1_t: "MardRisk AI Product", p1_d: "Առաջադեմ Ֆինանսական LLM համակարգ՝ տվյալների վերլուծության համար:",
+                p2_t: "MardRisk AI App", p2_d: "Ֆինանսական LLM մոդելի օգտագործման ինտերֆեյս և գործարկում:",
+                p3_t: "AcademyMardRisk AI", p3_d: "Ուսումնական հարթակ AI և ֆինանսական տվյալների գիտության (Data Science) համար:",
+                p4_t: "MardRisk Blog", p4_d: "Տեխնոլոգիական բլոգ և վերլուծական հարթակ MardRisk էկոհամակարգի համար:",
+                p5_t: "Oxythea", p5_d: "Էկոլոգիական և շրջակա միջավայրի տվյալների AI մոնիտորինգի նախագիծ:",
+                p6_t: "Tiffany Flowers", p6_d: "Ծաղիկների էլեգանտ օնլայն խանութ՝ դինամիկ կատալոգով և պատվերի ձևով:",
+                p7_t: "AL Flowers", p7_d: "Պրեմիում դասի ծաղկի սրահի վեբ-կայք՝ ինտերակտիվ պատկերասրահով:",
+                p8_t: "Best Furniture", p8_d: "Ժամանակակից կահույքի խանութ-սրահի կատալոգ՝ հարմար ֆիլտրերով:",
+                p9_t: "Dante Dental", p9_d: "Ատամնաբուժական կլինիկայի կայք՝ օնլայն հերթագրման համակարգով:",
+                p10_t: "City Estate", p10_d: "Անշարժ գույքի գործակալության պլատֆորմ՝ հայտարարությունների բազայով:",
+                p11_t: "Aghajanyan Agency", p11_d: "Բիզնես գործակալության պաշտոնական ներկայացուցչական վեբ-կայք:"
+            },
+            ru: {
+                nav_home: "Главная", nav_portfolio: "Портфолио", nav_cta: "Связаться",
+                port_title: "Наши Выполненные Проекты",
+                port_subtitle: "Ознакомьтесь с внедренными нами решениями ИИ, автоматизированными системами и премиум веб-платформами.",
+                cat_all: "Все", cat_ai: "AI & FinTech", cat_eco: "E-commerce", cat_corp: "Корпоративные",
+                visit: "Посетить Сайт", terms_link: "Условия использования", privacy_link: "Политика конфиденциальности",
+                terms_title: "Условия использования", privacy_title: "Политика конфиденциальности",
+                terms_content: "<p>Проекты, представленные в нашем портфолио, защищены авторскими правами и соглашениями о конфиденциальности.</p>",
+                privacy_content: "<p>Мы заботимся о вашей конфиденциальности. Просмотр портфолио полностью анонимен.</p>",
+                p1_t: "MardRisk AI Product", p1_d: "Продвинутая финансовая система LLM для глубокого анализа данных.",
+                p2_t: "MardRisk AI App", p2_d: "Интерфейс приложения и развертывание разработанной финансовой LLM.",
+                p3_t: "AcademyMardRisk AI", p3_d: "Образовательная платформа по искусственному интеллекту и финансовой науке о данных.",
+                p4_t: "MardRisk Blog", p4_d: "Технологический блог и аналитическая платформа экосистемы MardRisk.",
+                p5_t: "Oxythea", p5_d: "Проект экологического мониторинга окружающей среды с использованием ИИ.",
+                p6_t: "Tiffany Flowers", p6_d: "Элегантный цветочный интернет-магазин с динамическим каталогом и формой заказа.",
+                p7_t: "AL Flowers", p7_d: "Веб-сайт премиум-салона цветов с интерактивной галереей продукции.",
+                p8_t: "Best Furniture", p8_d: "Каталог современного мебельного салона с удобной фильтрацией товаров.",
+                p9_t: "Dante Dental", p9_d: "Сайт стоматологической клиники с системой онлайн-записи на прием.",
+                p10_t: "City Estate", p10_d: "Платформа агентства недвижимости с базой актуальных объявлений.",
+                p11_t: "Aghajanyan Agency", p11_d: "Официальный представительский веб-сайт бизнес-агентства."
+            },
+            en: {
+                nav_home: "Home", nav_portfolio: "Portfolio", nav_cta: "Contact",
+                port_title: "Our Completed Projects",
+                port_subtitle: "Explore our custom AI deployments, advanced automation platforms, and enterprise web solutions.",
+                cat_all: "All", cat_ai: "AI & FinTech", cat_eco: "E-commerce", cat_corp: "Corporate",
+                visit: "Visit Live Site", terms_link: "Terms of Service", privacy_link: "Privacy Policy",
+                terms_title: "Terms of Service", privacy_title: "Privacy Policy",
+                terms_content: "<p>All projects displayed in this portfolio architecture represent property intellectual domains of SmartCon AI or associated contract partners.</p>",
+                privacy_content: "<p>Your tracking vectors are unrecorded inside this interactive system layer.</p>",
+                p1_t: "MardRisk AI Product", p1_d: "Advanced Financial LLM infrastructure engineered for extreme data analytics.",
+                p2_t: "MardRisk AI App", p2_d: "The core application interface and systematic deployment of the Financial LLM.",
+                p3_t: "AcademyMardRisk AI", p3_d: "Educational platform specialized in AI model training and financial data science.",
+                p4_t: "MardRisk Blog", p4_d: "Official tech blog and structural insights platform for the MardRisk network.",
+                p5_t: "Oxythea", p5_d: "Eco-friendly environmental data monitoring system backed by custom AI structures.",
+                p6_t: "Tiffany Flowers", p6_d: "Elegant flower boutique deployment containing dynamic catalogs and responsive order flows.",
+                p7_t: "AL Flowers", p7_d: "Premium florist catalog showcase built with high performance layout parameters.",
+                p8_t: "Best Furniture", p8_d: "Modern furniture ecosystem displaying categorized products with smooth animations.",
+                p9_t: "Dante Dental", p9_d: "Clinical dental website equipped with service matrices and live reservation configurations.",
+                p10_t: "City Estate", p10_d: "High-performance real estate pipeline showcasing complex listing structures.",
+                p11_t: "Aghajanyan Agency", p11_d: "Sophisticated corporate presentation website outlining enterprise agency services."
+            }
+        };
+
+        let currentLang = localStorage.getItem('smartcon_lang') || 'hy';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Run system components
+            let progress = 0;
+            const fill = document.getElementById('loader-bar');
+            const loader = document.getElementById('loader');
+            const interval = setInterval(() => {
+                progress += 20;
+                if(fill) fill.style.width = progress + '%';
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if(loader) {
+                            loader.style.opacity = '0';
+                            loader.style.visibility = 'hidden';
+                        }
+                    }, 150);
+                }
+            }, 30);
+
+            switchLanguage(currentLang);
+        });
+
+        /* SCROLL TRACKING ENGINE */
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            const topBtn = document.getElementById('scroll-top-btn');
+            const progress = document.getElementById('scroll-progress');
+
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            if(progress && total > 0) progress.style.width = (window.scrollY / total) * 100 + '%';
+
+            if(window.scrollY > 40) {
+                if(header) header.style.padding = '10px 0';
+            } else {
+                if(header) header.style.padding = '16px 0';
+            }
+
+            if(window.scrollY > 400) {
+                if(topBtn) topBtn.classList.add('active');
+            } else {
+                if(topBtn) topBtn.classList.remove('active');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* MOBILE MENU MANAGEMENT */
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        if(menuToggleBtn) {
+            menuToggleBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        function toggleMobileMenu() {
+            if(!mobileMenuOverlay || !menuToggleBtn) return;
+            mobileMenuOverlay.classList.toggle('active');
+            const icon = menuToggleBtn.querySelector('i');
+            if(icon) {
+                icon.className = mobileMenuOverlay.classList.contains('active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+            }
+        }
+
+        /* LANGUAGE RE-RENDER ROUTINE */
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('smartcon_lang', lang);
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (I18N_PORTFOLIO[lang][key]) {
+                    el.innerHTML = I18N_PORTFOLIO[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-switcher-desktop, .mobile-lang-switcher').forEach(container => {
+                container.querySelectorAll('.lang-btn').forEach(btn => {
+                    if (btn.innerText.toLowerCase() === lang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        /* PREMIUM TAB FILTER ENGINE */
+        function filterProjects(category, buttonElement) {
+            // Adjust active state classification on tabs
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                // Smooth hardware accelerated scale opacity transformation pipeline
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                if(category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        }
+
+        /* TERMS & PRIVACY SYSTEM ISOLATION INTERFACE ROUTINES */
+        let rememberedScrollPosition = 0;
+        const legalOverlay = document.getElementById('legal-isolation-overlay');
+        const mainPortfolioView = document.getElementById('main-portfolio-view');
+        const mainHeaderElement = document.getElementById('main-header');
+
+        function openLegalView(type) {
+            rememberedScrollPosition = window.scrollY;
+            
+            const titleEl = document.getElementById('legal-title');
+            const bodyEl = document.getElementById('legal-body');
+
+            if (type === 'terms') {
+                titleEl.innerHTML = I18N_PORTFOLIO[currentLang]['terms_title'];
+                bodyEl.innerHTML = I18N_PORTFOLIO[currentLang]['terms_content'];
+            } else if (type === 'privacy') {
+                titleEl.innerHTML = I18N_PORTFOLIO[currentLang]['privacy_title'];
+                bodyEl.innerHTML = I18N_PORTFOLIO[currentLang]['privacy_content'];
+            }
+
+            if(mainPortfolioView) mainPortfolioView.style.display = 'none';
+            if(mainHeaderElement) mainHeaderElement.style.display = 'none';
+            if(legalOverlay) legalOverlay.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function closeLegalView() {
+            if(legalOverlay) legalOverlay.classList.remove('active');
+            if(mainPortfolioView) mainPortfolioView.style.display = 'block';
+            if(mainHeaderElement) mainHeaderElement.style.display = 'block';
+            window.scrollTo(0, rememberedScrollPosition);
+        }
+    </script>
+</body>
+</html>
