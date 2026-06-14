@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCon AI – ԱԲ Դասընթաց</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #030712;
+    --bg2: #0a0f1e;
+    --surface: #0f172a;
+    --surface2: #1e293b;
+    --border: rgba(255,255,255,0.07);
+    --accent: #6366f1;
+    --accent2: #8b5cf6;
+    --accent3: #06b6d4;
+    --gold: #f59e0b;
+    --white: #f8fafc;
+    --muted: #94a3b8;
+    --text: #e2e8f0;
+    --danger: #ef4444;
+    --green: #10b981;
+    --glow: 0 0 60px rgba(99,102,241,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── GRID NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(99,102,241,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(139,92,246,0.10) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(3,7,18,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border: none; padding: 10px 24px;
+    border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 50px; padding: 6px 16px;
+    font-size: 0.8rem; font-weight: 600; color: #a5b4fc;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+  .hero h1 .line1 { display: block; color: var(--white); }
+  .hero h1 .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--muted); max-width: 600px;
+    margin: 0 auto 48px;
+    font-weight: 400; line-height: 1.7;
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-wrap {
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 20px; padding: 28px 40px;
+    margin-bottom: 40px;
+    position: relative; overflow: hidden;
+  }
+  .countdown-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(99,102,241,0.04));
+    pointer-events: none;
+  }
+  .countdown-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent3);
+    margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .countdown-label::before, .countdown-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 1px; background: rgba(6,182,212,0.3);
+  }
+  .countdown-grid {
+    display: flex; gap: 16px; justify-content: center; align-items: center;
+  }
+  .cd-block {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 72px;
+  }
+  .cd-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+    background: linear-gradient(135deg, var(--white), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .cd-unit {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: 6px;
+  }
+  .cd-sep {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; color: var(--accent); font-weight: 700;
+    margin-bottom: 16px; animation: blink 1s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  /* ── PRICE BLOCK ── */
+  .price-block {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .price-old {
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--muted); position: relative;
+    text-decoration: line-through;
+    text-decoration-color: var(--danger);
+    opacity: 0.8;
+  }
+  .price-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .price-save {
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: var(--green); font-size: 0.8rem; font-weight: 700;
+    padding: 4px 12px; border-radius: 50px;
+    letter-spacing: 0.05em;
+  }
+
+  .urgency {
+    font-size: 0.85rem; color: #fca5a5;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-bottom: 32px; font-weight: 500;
+  }
+  .urgency::before { content: '🔥'; }
+
+  /* ── CTA BUTTONS ── */
+  .cta-group {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; text-decoration: none;
+    padding: 16px 36px; border-radius: 50px;
+    font-weight: 700; font-size: 1rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 30px rgba(99,102,241,0.35);
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(99,102,241,0.5); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text); text-decoration: none;
+    padding: 16px 36px; border-radius: 50px;
+    font-weight: 600; font-size: 1rem;
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+
+  /* ── SOCIAL ROW ── */
+  .social-row {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .social-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 50px;
+    border: 1px solid var(--border);
+    font-size: 0.82rem; font-weight: 500; color: var(--muted);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .social-pill:hover { border-color: rgba(99,102,241,0.4); color: var(--white); background: rgba(99,102,241,0.06); }
+  .social-pill svg { width: 16px; height: 16px; }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(15,23,42,0.6);
+    padding: 28px 5%;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    flex: 1; min-width: 160px; max-width: 240px;
+    text-align: center; padding: 16px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; padding: 100px 5%; }
+  .section-eyebrow {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent3);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--accent3); opacity: 0.4; }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px; color: var(--white);
+  }
+  .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; line-height: 1.7; }
+  .text-center { text-align: center; }
+  .text-center .section-eyebrow { justify-content: center; }
+  .text-center .section-eyebrow::after { display: none; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* ── MODULES / WHAT YOU LEARN ── */
+  .modules-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; margin-top: 56px;
+  }
+  .module-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .module-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent3), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .module-card:hover { transform: translateY(-6px); border-color: rgba(99,102,241,0.3); box-shadow: var(--glow); }
+  .module-card:hover::before { opacity: 1; }
+  .module-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--accent3); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .module-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 20px;
+  }
+  .icon-purple { background: rgba(99,102,241,0.12); }
+  .icon-cyan { background: rgba(6,182,212,0.12); }
+  .icon-violet { background: rgba(139,92,246,0.12); }
+  .module-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--white);
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .module-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+  .module-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+  }
+  .tag {
+    font-size: 0.72rem; font-weight: 600; padding: 4px 12px;
+    border-radius: 50px; border: 1px solid;
+  }
+  .tag-purple { color: #a5b4fc; border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.08); }
+  .tag-cyan { color: #67e8f9; border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.08); }
+  .tag-violet { color: #c4b5fd; border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+
+  /* ── CURRICULUM TIMELINE ── */
+  .curriculum { background: var(--bg2); }
+  .curriculum-inner { max-width: 800px; margin: 56px auto 0; }
+  .phase {
+    display: flex; gap: 24px; margin-bottom: 40px;
+    position: relative;
+  }
+  .phase:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 23px; top: 56px; bottom: -40px; width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .phase-dot {
+    flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .dot-1 { background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.4); }
+  .dot-2 { background: rgba(6,182,212,0.2); color: #67e8f9; border: 1px solid rgba(6,182,212,0.4); }
+  .dot-3 { background: rgba(139,92,246,0.2); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.4); }
+  .dot-4 { background: rgba(245,158,11,0.2); color: #fde68a; border: 1px solid rgba(245,158,11,0.4); }
+  .phase-body { flex: 1; padding-top: 8px; }
+  .phase-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 8px;
+  }
+  .phase-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+  .phase-items { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .phase-items li {
+    color: var(--text); font-size: 0.88rem;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .phase-items li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  /* ── BONUS ── */
+  .bonus-card {
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.06));
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 20px; padding: 40px;
+    display: flex; gap: 24px; align-items: flex-start;
+    margin-top: 24px;
+  }
+  .bonus-icon {
+    font-size: 2.4rem; flex-shrink: 0;
+    width: 64px; height: 64px;
+    background: rgba(99,102,241,0.12);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bonus-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 8px;
+  }
+  .bonus-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+
+  /* ── PRICING CTA ── */
+  .pricing-section {
+    text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(99,102,241,0.07) 0%, transparent 70%);
+  }
+  .pricing-card {
+    max-width: 520px; margin: 48px auto 0;
+    background: var(--surface);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 28px; padding: 48px;
+    position: relative; overflow: hidden;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+  }
+  .most-popular {
+    position: absolute; top: 24px; right: 24px;
+    background: linear-gradient(135deg, var(--gold), #fbbf24);
+    color: #000; font-size: 0.7rem; font-weight: 800;
+    padding: 4px 12px; border-radius: 50px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pricing-card .price-block { flex-direction: column; gap: 8px; margin-bottom: 8px; }
+  .price-note { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+  .feature-list {
+    list-style: none; text-align: left; margin-bottom: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.92rem; color: var(--text);
+  }
+  .check {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    color: var(--green); font-size: 0.7rem; font-weight: 900;
+  }
+  .spots-left {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 10px; padding: 14px 20px;
+    font-size: 0.85rem; color: #fca5a5;
+    text-align: center; margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--bg2); }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .contact-card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.3); }
+  .contact-card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .contact-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 700; color: var(--white);
+  }
+  .contact-card span { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .footer-copy { color: var(--muted); font-size: 0.82rem; }
+  .footer-link {
+    color: var(--muted); text-decoration: none; font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .stats-strip { flex-direction: column; align-items: center; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+    .countdown-grid { gap: 8px; }
+    .cd-block { min-width: 56px; }
+    nav { padding: 14px 4%; }
+    .bonus-card { flex-direction: column; }
+    .phase:not(:last-child)::after { display: none; }
+  }
+
+  /* ── FLOATING PARTICLES ── */
+  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .p { position: absolute; border-radius: 50%; animation: float linear infinite; }
+  @keyframes float {
+    from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    to { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── DECORATIVE GRID ── */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+</style>
+</head>
+<body>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">SmartCon AI</div>
+  <a href="https://t.me/mardriskop" target="_blank" class="nav-cta">Դիմել Հիմա →</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="badge"><span class="badge-dot"></span> Միայն 10 Տեղ Available</div>
+
+  <h1>
+    <span class="line1">Տիրապետիր AI-ին</span>
+    <span class="line2">Ինչպես Պրոֆեսիոնալ</span>
+  </h1>
+
+  <p class="hero-sub">
+    3 հզոր մոդուլ, 1 դասընթաց. Prompt Engineering, AI Մարքեթինգ,
+    No-Code Ավտոմատացում — ամեն ինչ, ինչ ձեզ հարկավոր է 2025-ին։
+  </p>
+
+  <!-- Countdown -->
+  <div class="countdown-wrap reveal">
+    <div class="countdown-label">Շտապ Առաջարկ Ավարտվում է</div>
+    <div class="countdown-grid">
+      <div class="cd-block">
+        <div class="cd-num" id="cd-hours">00</div>
+        <div class="cd-unit">Ժամ</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block">
+        <div class="cd-num" id="cd-minutes">00</div>
+        <div class="cd-unit">Րոպե</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block">
+        <div class="cd-num" id="cd-seconds">00</div>
+        <div class="cd-unit">Վայրկյան</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Price -->
+  <div class="price-block reveal">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <span class="price-old">19,000 ֏</span>
+      <span class="price-tag">10,900 ֏</span>
+      <span class="price-save">ԽՆԱՅԵԼ 8,100 ֏</span>
+    </div>
+  </div>
+  <div class="urgency">Միայն 10 հոգու համար — Ժամկետը Հունիս 15, 15:00</div>
+
+  <div class="cta-group reveal">
+    <a href="https://t.me/mardriskop" target="_blank" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Telegram-ով Դիմել
+    </a>
+    <a href="https://wa.me/37433271195" target="_blank" class="btn-secondary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      WhatsApp-ով Դիմել
+    </a>
+  </div>
+
+  <!-- Social Links -->
+  <div class="social-row reveal">
+    <a href="https://smartconai.store" target="_blank" class="social-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      smartconai.store
+    </a>
+    <a href="https://instagram.com/smartcon.ai" target="_blank" class="social-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @smartcon.ai
+    </a>
+    <a href="https://facebook.com/smartconai" target="_blank" class="social-pill">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      SmartConAI
+    </a>
+  </div>
+</section>
+
+<!-- Stats Strip -->
+<div class="stats-strip">
+  <div class="stat-item reveal">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Հիմնական Մոդուլ</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">20+</div>
+    <div class="stat-label">Պատրաստի Prompt Բազա</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">AI Ագենտ Աշխատանք</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">10</div>
+    <div class="stat-label">Առավ. Մասնակիցներ</div>
+  </div>
+</div>
+
+<!-- What You Learn -->
+<section id="modules">
+  <div class="section-eyebrow">Ծրագիր</div>
+  <div class="section-title">Ի՞նչ Ենք Սովորելու</div>
+  <p class="section-sub">Երեք հզոր մոդուլ, որոնք ամբողջությամբ կփոխեն ձեր հարաբերությունն AI-ի հետ</p>
+
+  <div class="modules-grid">
+    <div class="module-card reveal">
+      <div class="module-num">ՄՈԴՈՒԼ 01</div>
+      <div class="module-icon icon-purple">🧠</div>
+      <h3>Prompt Engineering-ի Արվեստը</h3>
+      <p>Ինչպես գրել պրոմպտներ, որ AI-ն աշխատի Senior մասնագետի պես։ Ստանաք մեր անձնական պատրաստի պրոմպտների մեծ բազան՝ անմիջապես կիրառելու համար։</p>
+      <div class="module-tags">
+        <span class="tag tag-purple">Prompt Frameworks</span>
+        <span class="tag tag-purple">Chain-of-Thought</span>
+        <span class="tag tag-purple">Role Prompting</span>
+      </div>
+    </div>
+
+    <div class="module-card reveal">
+      <div class="module-num">ՄՈԴՈՒԼ 02</div>
+      <div class="module-icon icon-cyan">📈</div>
+      <h3>AI-ն որպես Մարքեթոլոգ</h3>
+      <p>Ինչպես 20 րոպեում ստեղծել 1 ամսվա կոնտենտ-պլան, գրել վաճառող տեքստեր ու վերլուծել մրցակիցներին AI-ի միջոցով։</p>
+      <div class="module-tags">
+        <span class="tag tag-cyan">Content Plan</span>
+        <span class="tag tag-cyan">Copywriting</span>
+        <span class="tag tag-cyan">Competitor Analysis</span>
+      </div>
+    </div>
+
+    <div class="module-card reveal">
+      <div class="module-num">ՄՈԴՈՒԼ 03</div>
+      <div class="module-icon icon-violet">⚙️</div>
+      <h3>Գործերի Ավտոմատացում</h3>
+      <p>Ինչպես առանց կոդ գրելու (No-Code) կապել AI-ն ձեր Telegram-ին, CRM-ին կամ Google Sheets-ին և ստեղծել 24/7 աշխատող custom AI ագենտներ։</p>
+      <div class="module-tags">
+        <span class="tag tag-violet">No-Code</span>
+        <span class="tag tag-violet">AI Agents</span>
+        <span class="tag tag-violet">Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Curriculum Timeline -->
+<section class="curriculum" id="curriculum">
+  <div class="text-center">
+    <div class="section-eyebrow">Ուսումնական Ծրագիր</div>
+    <div class="section-title">4 Փուլով դեպի Արդյունք</div>
+    <p class="section-sub">Հստակ, կառուցվածքային ուղի — սկսնակից մինչև AI Specialist</p>
+  </div>
+
+  <div class="curriculum-inner">
+    <div class="phase reveal">
+      <div class="phase-dot dot-1">01</div>
+      <div class="phase-body">
+        <div class="phase-title">Հիմքերը — AI-ի Հետ Ճիշտ Հաղորդակցություն</div>
+        <p class="phase-desc">AI-ի աշխատանքի սկզբունքները, prompt-ի կառուցվածք, chain-of-thought մեթոդ</p>
+        <ul class="phase-items">
+          <li>Ճիշտ հարցադրման տեխնիկաները</li>
+          <li>Senior-level prompt-ների գրում</li>
+          <li>Իմ անձնական prompt-ների բազա</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="phase-dot dot-2">02</div>
+      <div class="phase-body">
+        <div class="phase-title">AI-ն ձեր Մարքեթինգ Թիմն է</div>
+        <p class="phase-desc">Կոնտենտ պլան, SMM ռազմավարություն, վաճառող տեքստ — ամեն ինչ AI-ով</p>
+        <ul class="phase-items">
+          <li>1 ամիս SMM կոնտենտ 20 րոպեում</li>
+          <li>Մրցակիցների վերլուծություն</li>
+          <li>Selling copy AI-ի հետ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="phase-dot dot-3">03</div>
+      <div class="phase-body">
+        <div class="phase-title">No-Code Ավտոմատացում</div>
+        <p class="phase-desc">Make, Zapier, n8n — AI ագենտներ, CRM կապ, Telegram bot</p>
+        <ul class="phase-items">
+          <li>Telegram + AI ավտոպատասխան</li>
+          <li>Google Sheets + AI ինտեգրացիա</li>
+          <li>Custom AI ագենտ ձեր բիզնեսի համար</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="phase-dot dot-4">04</div>
+      <div class="phase-body">
+        <div class="phase-title">Պրակտիկ Նախագծեր + Ավարտական</div>
+        <p class="phase-desc">Ձեր բիզնեսի կամ կարիերայի համար իրական AI-powered system կառուցեք</p>
+        <ul class="phase-items">
+          <li>Անհատական AI workflow</li>
+          <li>Portfolio project</li>
+          <li>Certificate of Completion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bonus -->
+  <div class="curriculum-inner" style="margin-top:0;">
+    <div class="bonus-card reveal">
+      <div class="bonus-icon">🎁</div>
+      <div>
+        <h3>Բոնուս — Անձնական Prompt Բազա</h3>
+        <p>Ստանաք մեր թիմի կողմից կուտակված 50+ անձնական prompt-ների հավաքածու, որոնք արդեն աշխատում են marketing, sales, content, HR, tech բնագավառներում։ Ուղղակի copy-paste — ու AI-ն կաշխատի Senior-ի պես։</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing CTA -->
+<section class="pricing-section" id="pricing">
+  <div class="section-eyebrow" style="justify-content:center;">Գնագոյացում</div>
+  <div class="section-title">Ներդրե՛ք Ձեր Ապագայի Մեջ</div>
+  <p class="section-sub" style="margin:0 auto;">Գինը, որն ամբողջությամբ փոխհատուցվում է արդեն 1 ավտոմատացված workday-ից</p>
+
+  <div class="pricing-card reveal">
+    <span class="most-popular">⚡ ՇՏԱՊ</span>
+
+    <div class="price-block">
+      <div style="text-decoration:line-through;text-decoration-color:#ef4444;color:#64748b;font-size:1.3rem;font-weight:700;">19,000 ֏ Standard</div>
+      <div class="price-tag">10,900 ֏</div>
+      <div class="price-note">Ամբողջ Ծրագիրը · Prompt Բազա · Certificat</div>
+    </div>
+
+    <div class="spots-left">
+      🔴 Մնացել է ընդամենը <strong>10 տեղ</strong> · Ժամկետ՝ Հունիս 15-ն ժամը 15:00-ն
+    </div>
+
+    <ul class="feature-list">
+      <li><span class="check">✓</span> Prompt Engineering մոդուլ + 50+ prompt բազա</li>
+      <li><span class="check">✓</span> AI Marketing — կոնտենտ, copywriting, analysis</li>
+      <li><span class="check">✓</span> No-Code Automation — Telegram, CRM, Sheets</li>
+      <li><span class="check">✓</span> 4 փուլ, պրակտիկ նախագծեր</li>
+      <li><span class="check">✓</span> Ավարտական Վկայական</li>
+      <li><span class="check">✓</span> Lifetime Access դասերին</li>
+    </ul>
+
+    <div class="cta-group" style="flex-direction:column;gap:12px;">
+      <a href="https://t.me/mardriskop" target="_blank" class="btn-primary" style="width:100%;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram-ով Դիմել — @mardriskop
+      </a>
+      <a href="https://wa.me/37433271195" target="_blank" class="btn-secondary" style="width:100%;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp — +374 33 271 195
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div class="text-center">
+    <div class="section-eyebrow">Կապ</div>
+    <div class="section-title">Կապ Հաստատեք Մեզ Հետ</div>
+    <p class="section-sub">Ցանկացած հարցի դեպքում գրեք մեզ — 1 ժամ հետո կպատասխանենք</p>
+  </div>
+
+  <div class="contact-grid" style="max-width:900px;margin:48px auto 0;">
+    <a href="https://t.me/mardriskop" target="_blank" class="contact-card reveal">
+      <div class="contact-card-icon" style="background:rgba(37,99,235,0.12);">✈️</div>
+      <h4>Telegram</h4>
+      <span>@mardriskop</span>
+    </a>
+    <a href="https://wa.me/37433271195" target="_blank" class="contact-card reveal">
+      <div class="contact-card-icon" style="background:rgba(16,185,129,0.12);">💬</div>
+      <h4>WhatsApp</h4>
+      <span>+374 33 271 195</span>
+    </a>
+    <a href="https://instagram.com/smartcon.ai" target="_blank" class="contact-card reveal">
+      <div class="contact-card-icon" style="background:rgba(236,72,153,0.12);">📸</div>
+      <h4>Instagram</h4>
+      <span>@smartcon.ai</span>
+    </a>
+    <a href="https://facebook.com/smartconai" target="_blank" class="contact-card reveal">
+      <div class="contact-card-icon" style="background:rgba(59,130,246,0.12);">👥</div>
+      <h4>Facebook</h4>
+      <span>SmartConAI</span>
+    </a>
+    <a href="https://smartconai.store" target="_blank" class="contact-card reveal">
+      <div class="contact-card-icon" style="background:rgba(99,102,241,0.12);">🌐</div>
+      <h4>Կայք</h4>
+      <span>smartconai.store</span>
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">SmartCon AI</div>
+  <div class="footer-copy">© 2025 SmartCon AI · Բոլոր իրավունքները պաշտպանված են</div>
+  <a href="https://smartconai.store" target="_blank" class="footer-link">smartconai.store</a>
+</footer>
+
+<script>
+// ── COUNTDOWN to June 15, 2025 at 15:00 Armenia time (UTC+4)
+function updateCountdown() {
+  const target = new Date('2026-06-15T15:00:00+04:00');
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-minutes').textContent = '00';
+    document.getElementById('cd-seconds').textContent = '00';
+    return;
+  }
+
+  const hours = Math.floor(diff / 1000 / 3600);
+  const minutes = Math.floor((diff / 1000 % 3600) / 60);
+  const seconds = Math.floor(diff / 1000 % 60);
+
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── PARTICLES
+const container = document.getElementById('particles');
+const colors = ['rgba(99,102,241,0.35)', 'rgba(139,92,246,0.3)', 'rgba(6,182,212,0.25)', 'rgba(245,158,11,0.2)'];
+for (let i = 0; i < 22; i++) {
+  const p = document.createElement('div');
+  p.className = 'p';
+  const size = Math.random() * 4 + 1;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    animation-duration:${Math.random()*20+15}s;
+    animation-delay:${Math.random()*10}s;
+  `;
+  container.appendChild(p);
+}
+
+// ── SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
